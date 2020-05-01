@@ -1,0 +1,51 @@
+# Copyright 2020 Khushraj Rathod
+#
+# This file is part of TDLibBuilder.
+#
+# TDLibBuilder is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# TDLibBuilder is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with TDLibBuilder.  If not, see <https://www.gnu.org/licenses/>.
+
+language: bash
+
+os:
+  - osx
+  - linux
+
+addons:
+  homebrew:
+    packages:
+    - gperf
+    - cmake
+  apt:
+    update: true
+    packages:
+    - make
+    - zlib1g-dev
+    - libssl-dev
+    - gperf
+    - php
+    - libc++-dev
+    - clang
+
+script:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then chmod +x ./macOS.sh && bash ./macOS.sh; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then chmod +x ./linux.sh && bash ./linux.sh; fi
+
+after_success:
+  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; export UPLOADTOOL_SUFFIX="macOS" && bash upload.sh ./td/tdlib/lib/libtdjson.dylib; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; export UPLOADTOOL_SUFFIX="linux" && bash upload.sh ./td/tdlib/lib/libtdjson.so; fi
+
+branches:
+  except:
+    - /^(?i:continuous.*)$/

@@ -1,0 +1,33 @@
+language: bash
+
+addons:
+  apt:
+    update: true
+    packages:
+    - make
+    - zlib1g-dev
+    - libssl-dev
+    - gperf
+    - php
+    - libc++-dev
+    - clang
+
+script:
+  - git clone https://github.com/tdlib/td.git
+  - cd td
+  - mkdir build
+  - cd build
+  - export CXXFLAGS="-stdlib=libc++"
+  - CC=/usr/bin/clang CXX=/usr/bin/clang++ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
+  - cmake --build . --target install
+  - cd ..
+  - cd ..
+
+after_success:
+  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  - bash upload.sh ./td/tdlib/lib/libtdjson.so
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous.*)$/

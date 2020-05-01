@@ -38,7 +38,7 @@ addons:
     - clang
 
 script:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then chmod +x ./macOS.sh && bash ./macOS.sh; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then chmod  +x ./macOS.sh && bash ./macOS.sh; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then chmod +x ./linux.sh && bash ./linux.sh; fi
 
 after_success:

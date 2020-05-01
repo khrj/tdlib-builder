@@ -43,8 +43,8 @@ script:
 
 after_success:
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; export UPLOADTOOL_SUFFIX="macOS" && bash upload.sh ./td/tdlib/lib/libtdjson.dylib; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; export UPLOADTOOL_SUFFIX="linux" && bash upload.sh ./td/tdlib/lib/libtdjson.so; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export UPLOADTOOL_SUFFIX="macOS" && bash upload.sh ./td/tdlib/lib/libtdjson.dylib; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export UPLOADTOOL_SUFFIX="linux" && bash upload.sh ./td/tdlib/lib/libtdjson.so; fi
 
 branches:
   except:

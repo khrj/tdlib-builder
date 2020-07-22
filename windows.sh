@@ -16,3 +16,4 @@ cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPAT
 cmake --build . --target install --config Release
 cd ..
 cd ..
+mv $TRAVIS_BUILD_DIR/td/tdlib/bin/tdjson.dll $TRAVIS_BUILD_DIR/td/tdlib/bin/libtdjson.dll

@@ -3,7 +3,6 @@ export PATH="/c/tools/git/bin/:$PATH"
 chocolatey install gperf php openssl
 git clone https://github.com/tdlib/td.git
 cd td
-git checkout v1.6.0
 git clone https://github.com/Microsoft/vcpkg.git
 cd vcpkg
 ./bootstrap-vcpkg.bat
